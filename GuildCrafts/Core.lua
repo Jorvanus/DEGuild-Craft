@@ -497,6 +497,7 @@ function GuildCrafts:SlashHandler(input)
     elseif input == "reset" then
         self:Print("Wiping all SavedVariables and reloading...")
         GuildCraftsDB = nil
+        GuildCraftsCharDB = nil
         ReloadUI()
     elseif input == "minimap" then
         if self.MinimapButton then
