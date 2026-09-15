@@ -1,12 +1,10 @@
-> **GuildCrafts is no longer actively maintained. Version 2.0.2 is the final release from the original maintainer. The project remains available for community forks and adoption.**
-
 # GuildCrafts — Guild Profession Tracker for WoW Classic
 
 **The fastest way to find a crafter in your guild.**
 
 Stop asking in guild chat _"Can anyone craft this?"_ and waiting for replies.
 
-GuildCrafts automatically builds a **shared profession database for your entire guild** — tracking every recipe, every crafter, every specialization across all WoW Classic versions.
+GuildCrafts automatically builds a **shared profession database for your entire guild** — tracking every recipe, every crafter, every specialization.
 
 Search any item and instantly see **who can craft it**, what reagents it needs, and whether the crafter is online.
 
@@ -67,10 +65,6 @@ See **every guild member who can craft a recipe**.
 *   Click `[W]` to whisper a crafter directly — chat opens pre-filled
 *   Click `[>]` to post crafters directly to guild chat
 
-### Expansion Filters — Vanilla · TBC · WotLK · Cata · MoP
-
-Five toggle buttons let you filter recipes by expansion. Toggle any combination to show only the recipes you care about. Your selection persists across sessions.
-
 ### Online Filter & Tooltip Toggle
 
 **\[Online\]** hides offline members across the member list, crafter lists, and profession counts. Glows gold when active.
@@ -129,28 +123,15 @@ Your recipes automatically sync with other guild members who use the addon.
 
 ***
 
-# Supported WoW Classic Versions
+# Supported WoW Classic Version
 
-GuildCrafts works on **every WoW Classic game version** via multi-TOC:
-
-| Version | Interface |
-|---|---|
-| **Classic Era** | 1.15.x |
-| **TBC Anniversary** | 2.5.x |
-| **WotLK Classic** | 3.4.x |
-| **Cata Classic** | 4.4.x |
-| **MoP Classic** | 5.5.x |
-
-Install a single addon folder — the game automatically loads the correct version.
+GuildCrafts is built for **WoW Classic Forever** (Interface 11507).
 
 ### Supported Professions
 
-**Crafting:** Alchemy · Blacksmithing · Enchanting · Engineering · Inscription¹ · Jewelcrafting² · Leatherworking · Tailoring
+**Crafting:** Alchemy · Blacksmithing · Enchanting · Engineering · Leatherworking · Tailoring
 
 **Secondary:** Mining (incl. Smelting) · Herbalism · Skinning · Cooking
-
-¹ Inscription available on WotLK Classic and later  
-² Jewelcrafting available on TBC Anniversary and later
 
 Gathering professions track skill levels and member counts. Mining additionally tracks Smelting recipes.
 
@@ -189,20 +170,3 @@ or arenas do not answer `!gc` because GUILD addon messages cannot reliably cross
 those boundaries; this prevents duplicate guild-chat responses. If every addon
 user is instanced, the query may wait until someone is back in the open world.
 
-***
-
-## Project Status
-
-GuildCrafts is no longer actively maintained by the original developer. The
-final release is **2.0.2**. The project remains available as-is for anyone who
-wants to fork it, adopt maintenance, or continue development with an active
-Classic test environment. If you are interested in maintaining GuildCrafts,
-please contact me through the CurseForge project page.
-
-***
-
-## Support the Developer
-
-If GuildCrafts has saved you time or helped your guild coordinate better, consider buying me a coffee — it's genuinely appreciated.
-
-[Support me on Ko-fi ☕](https://ko-fi.com/lektor)

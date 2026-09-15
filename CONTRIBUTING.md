@@ -21,7 +21,7 @@ Thanks for your interest in contributing to GuildCrafts! This guide will help yo
 
 ## Development Setup
 
-GuildCrafts is a World of Warcraft TBC Anniversary addon (Interface 20505, Lua 5.1).
+GuildCrafts is a World of Warcraft Classic Forever addon (Interface 11507, Lua 5.1).
 
 To test locally:
 1. Clone/symlink the `GuildCrafts/` folder into your WoW addons directory:

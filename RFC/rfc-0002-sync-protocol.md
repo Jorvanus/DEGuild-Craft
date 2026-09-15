@@ -2,7 +2,7 @@
 
 **Status:** Informational  
 **Applies to:** GuildCrafts v1.4.0+
-**Channel:** `GUILD` addon message channel (WoW Classic Era through MoP Classic)
+**Channel:** `GUILD` addon message channel (WoW Classic Forever)
 
 ---
 

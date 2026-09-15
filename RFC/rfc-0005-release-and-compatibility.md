@@ -12,7 +12,7 @@
 3. [Interface / TOC Versioning](#3-interface--toc-versioning)
 4. [Compatibility Layers](#4-compatibility-layers)
    - 4.1 [Tooltip Pipeline (2.5.6 / Classic Era 1.15.9)](#41-tooltip-pipeline-256--classic-era-1159)
-   - 4.2 [TradeSkill API (WotLK modernisation)](#42-tradeskill-api-wotlk-modernisation)
+   - 4.2 [TradeSkill API (defensive compatibility)](#42-tradeskill-api-defensive-compatibility)
 5. [Git Workflow](#5-git-workflow)
 6. [Branch Strategy](#6-branch-strategy)
 7. [Pull Request & Merge Process](#7-pull-request--merge-process)
@@ -29,7 +29,7 @@ GuildCrafts uses four distinct version identifiers:
 | Field | Location | Type | Purpose |
 |-------|----------|------|---------|
 | `DISPLAY_VERSION` | `Core.lua` | string `"X.Y.Z"` | Human-readable version shown in tooltips, `/gc version`, and CurseForge. |
-| `## Version` | `GuildCrafts.toc` | string `"X.Y.Z"` | Loaded by WoW and reported in the addon list. Must match `DISPLAY_VERSION`. |
+| `## Version` | `GuildCrafts_Forever.toc` | string `"X.Y.Z"` | Loaded by WoW and reported in the addon list. Must match `DISPLAY_VERSION`. |
 | `GuildCrafts.VERSION` | `Core.lua` | integer | Wire protocol version. Carried in every sync envelope. Bump only on backward-incompatible wire format changes. Currently `2`. |
 | `GuildCrafts.DATA_FORMAT_VERSION` | `Core.lua` | integer | Member entry schema version. Bump when the sync payload structure changes. See RFC-0003 §11. Currently `2`. |
 
@@ -46,7 +46,7 @@ locations. They must always match:
 | File | Field |
 |------|-------|
 | `GuildCrafts/Core.lua` | `GuildCrafts.DISPLAY_VERSION = "X.Y.Z"` |
-| `GuildCrafts/GuildCrafts.toc` | `## Version: X.Y.Z` |
+| `GuildCrafts/GuildCrafts_Forever.toc` | `## Version: X.Y.Z` |
 | `CHANGELOG.md` | `## X.Y.Z — YYYY-MM-DD` (new entry at the top) |
 
 Wire protocol integers (`VERSION`, `DATA_FORMAT_VERSION`) are bumped
@@ -57,17 +57,12 @@ not need to match the display version.
 
 ## 3. Interface / TOC Versioning
 
-The `## Interface` field in `GuildCrafts.toc` must match the client build
-number of the target WoW version:
+The `## Interface` field in `GuildCrafts_Forever.toc` must match the client
+build number of WoW Classic Forever:
 
 | Game version | Interface number |
 |---|---|
-| Classic Era 1.15.x | `11507` |
-| TBC Classic 2.5.5 | `20505` |
-| TBC Classic 2.5.6 | `20506` |
-| WotLK Classic 3.4.x | `30403` |
-| Cata Classic 4.4.x | `40402` |
-| MoP Classic 5.5.x | `50504` |
+| WoW Classic Forever 1.15.x | `11507` |
 
 The interface number is bumped when Blizzard releases a new client patch that
 changes the number. It is **not** bumped for every display-version release.
@@ -104,11 +99,11 @@ end
 This guard must be preserved whenever Tooltip.lua is modified. The handler
 body (`tooltip:GetItem()` and crafter lookup) is identical for both paths.
 
-### 4.2 TradeSkill API (multi-expansion compatibility)
+### 4.2 TradeSkill API (defensive compatibility)
 
-Classic Era, WotLK Classic, Cata Classic, and MoP Classic expose different
-TradeSkill and skill-line APIs. Compatibility wrappers live in
-`Modules/Data.lua` on `main`:
+GuildCrafts targets WoW Classic Forever only, but the scanner still guards
+against API surface differences between client builds. Compatibility wrappers
+live in `Modules/Data.lua` on `main`:
 
 | Classic API | Modern replacement | Wrapper |
 |---|---|---|
@@ -118,10 +113,8 @@ TradeSkill and skill-line APIs. Compatibility wrappers live in
 | `GetTradeSkillNumReagents()` (may be absent) | — | `if not GetTradeSkillNumReagents then return nil end` nil guard |
 
 Each wrapper prefers the modern API when the specific function exists and
-falls back to the classic API. The scanner also guards against namespaces that
-exist on a client but do not provide the required function. The same addon
-code therefore runs across Classic Era, TBC Anniversary, WotLK Classic, Cata
-Classic, and MoP Classic.
+falls back to the classic API, so the scanner keeps working if a future
+Classic Forever client build introduces the modern namespace.
 
 ---
 
@@ -141,11 +134,13 @@ from the maintainer.
 
 | Branch | Purpose |
 |--------|---------|
-| `main` | Production-ready multi-expansion release. |
+| `main` | Production-ready WoW Classic Forever release. |
 | `feature/patch-N-*` | Short-lived feature/fix branches, squash-merged into `main`. |
-`wotlk-migration` was an intermediate development branch and has been
-retired. Its compatibility work shipped in the 2.0.0 multi-expansion release;
-there is no separate WotLK branch to maintain.
+
+`wotlk-migration` and `feature/multi-expansion-support` were intermediate
+development branches and have both been retired; multi-expansion support was
+later removed entirely in favor of a single WoW Classic Forever edition (see
+CHANGELOG 3.0.0).
 
 ---
 
@@ -219,8 +214,7 @@ Rules:
 ## 10. CurseForge Distribution
 
 - Project page: GuildCrafts on CurseForge (WoW Classic category).
-- Supported clients: Classic Era, TBC Anniversary, WotLK Classic, Cata
-  Classic, and MoP Classic.
+- Supported client: WoW Classic Forever.
 - `CURSEFORGE_DESCRIPTION.md` contains the rendered project description
   (Markdown is rendered by CurseForge).
 - Do not include development files (`spec/`, `tools/`, `.DS_Store`,

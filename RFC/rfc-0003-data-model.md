@@ -363,7 +363,6 @@ Stored in the AceDB profile scope (per-character by default):
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | `showOnlineOnly` | boolean | false | Filter member list to online-only. |
-| `expansionFilter` | table | `{ ORIG=true, TBC=true }` | Which recipe expansions to show. |
 | `showTooltipCrafters` | boolean | true | Show crafter list in item tooltips. |
 
 Minimap preferences (position and visibility) are stored at `db.global.minimap`

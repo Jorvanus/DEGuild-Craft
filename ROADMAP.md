@@ -115,6 +115,15 @@ This document describes planned releases with implementation notes for each item
 | — | Linked tradeskill guard (prevents data corruption) | Done in 2.0.0 |
 | — | Self-prune protection (player entry never marked absent or pruned) | Done in 2.0.0 |
 
+### 3.0.0 — WoW Classic Forever Only
+
+| Issue | Title | Status |
+|-------|-------|--------|
+| — | Removed multi-TOC support; single `GuildCrafts_Forever.toc` (Interface 11507) | Done in 3.0.0 |
+| — | Removed TBC/WotLK/Cata/MoP recipe data files and expansion tagging | Done in 3.0.0 |
+| — | Removed expansion filter UI | Done in 3.0.0 |
+| — | Removed Inscription and Jewelcrafting (not available in Classic Era) | Done in 3.0.0 |
+
 ---
 
 ## Planned

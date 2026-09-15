@@ -90,8 +90,6 @@ local TRACKED_PROFESSIONS = {
     ["Blacksmithing"]  = true,
     ["Enchanting"]     = true,
     ["Engineering"]    = true,
-    ["Inscription"]    = true,
-    ["Jewelcrafting"]  = true,
     ["Leatherworking"] = true,
     ["Tailoring"]      = true,
     -- Secondary (gathering + cooking)
@@ -100,9 +98,6 @@ local TRACKED_PROFESSIONS = {
     ["Skinning"]       = true,
     ["Cooking"]        = true,
 }
-
--- TBC_ITEM_IDS is populated by Data_TBC.lua on the GuildCrafts addon table.
--- It maps every TBC Classic recipe spell ID to 1.
 
 ----------------------------------------------------------------------
 -- Locale-to-canonical profession name mapping
@@ -117,8 +112,6 @@ local PROFESSION_SPELL_IDS = {
     ["Cooking"]        = 2550,
     ["Enchanting"]     = 7411,
     ["Engineering"]    = 4036,
-    ["Inscription"]    = 45357,
-    ["Jewelcrafting"]  = 25229,
     ["Leatherworking"] = 2108,
     ["Tailoring"]      = 3908,
     ["Mining"]         = 2575,
@@ -191,7 +184,7 @@ function Data:GetLocalizedReagentName(reagent)
     return reagent.name or ""
 end
 
--- TBC profession specialisations keyed by spellID
+-- Profession specialisations keyed by spellID
 -- Each entry maps to { prof, spec, desc }
 local SPECIALISATION_SPELLS = {
     -- Alchemy
@@ -201,9 +194,6 @@ local SPECIALISATION_SPELLS = {
     -- Blacksmithing
     [9788]  = { prof = "Blacksmithing",   spec = "Armorsmith",                 desc = "Unlocks high-end plate armour recipes." },
     [9787]  = { prof = "Blacksmithing",   spec = "Weaponsmith",                desc = "Unlocks high-end weapon recipes." },
-    [17039] = { prof = "Blacksmithing",   spec = "Master Swordsmith",          desc = "Unlocks iconic TBC sword recipes." },
-    [17040] = { prof = "Blacksmithing",   spec = "Master Hammersmith",         desc = "Unlocks iconic TBC hammer recipes." },
-    [17041] = { prof = "Blacksmithing",   spec = "Master Axesmith",            desc = "Unlocks iconic TBC axe recipes." },
     -- Engineering
     [20219] = { prof = "Engineering",     spec = "Gnomish Engineer",           desc = "Unlocks Gnomish gadgets and backfiring devices." },
     [20222] = { prof = "Engineering",     spec = "Goblin Engineer",            desc = "Unlocks explosive Goblin devices and launchers." },
@@ -223,19 +213,6 @@ function Data:GetSpecialisationDescription(spec)
         if info.spec == spec then return info.desc end
     end
     return nil
-end
-
---- Returns expansion tag for a recipe: "MOP", "CATA", "WOTLK", "TBC", or "ORIG".
-function Data:GetExpansionTag(_profName, recipeKey)
-    local mop = GuildCrafts.MOP_ITEM_IDS
-    if mop and mop[recipeKey] then return "MOP" end
-    local cata = GuildCrafts.CATA_ITEM_IDS
-    if cata and cata[recipeKey] then return "CATA" end
-    local wotlk = GuildCrafts.WOTLK_ITEM_IDS
-    if wotlk and wotlk[recipeKey] then return "WOTLK" end
-    local tbc = GuildCrafts.TBC_ITEM_IDS
-    if not tbc then return "ORIG" end
-    return tbc[recipeKey] and "TBC" or "ORIG"
 end
 
 -- AceDB defaults
@@ -260,15 +237,6 @@ local DB_DEFAULTS = {
     },
     profile = {
         showOnlineOnly      = false,
-        expansionFilter     = GuildCrafts.MOP_ITEM_IDS
-            and { ORIG = true, TBC = true, WOTLK = true, CATA = true, MOP = true }
-            or  GuildCrafts.CATA_ITEM_IDS
-            and { ORIG = true, TBC = true, WOTLK = true, CATA = true }
-            or  GuildCrafts.WOTLK_ITEM_IDS
-            and { ORIG = true, TBC = true, WOTLK = true }
-            or  GuildCrafts.TBC_ITEM_IDS
-            and { ORIG = true, TBC = true }
-            or  { ORIG = true },
         showTooltipCrafters = true,
     },
 }
@@ -281,14 +249,6 @@ function Data:OnInitialize()
     -- Set up AceDB
     GuildCrafts.db = LibStub("AceDB-3.0"):New("GuildCraftsDB", DB_DEFAULTS, true)
     self.db = GuildCrafts.db
-
-    -- Backfill expansion filter tags added in later versions
-    local f = self.db.profile.expansionFilter
-    if f then
-        if GuildCrafts.WOTLK_ITEM_IDS and f.WOTLK == nil then f.WOTLK = true end
-        if GuildCrafts.CATA_ITEM_IDS  and f.CATA  == nil then f.CATA  = true end
-        if GuildCrafts.MOP_ITEM_IDS   and f.MOP   == nil then f.MOP   = true end
-    end
 
     -- Migrate legacy per-crafter reagents/categories into shared RecipeDB
     self:MigrateToRecipeDB()
@@ -2011,29 +1971,8 @@ end
 -- Profession Name Lists
 ----------------------------------------------------------------------
 
-local PRIMARY_PROF_NAMES   = { "Alchemy", "Blacksmithing", "Enchanting", "Engineering", "Inscription", "Jewelcrafting", "Leatherworking", "Tailoring" }
+local PRIMARY_PROF_NAMES   = { "Alchemy", "Blacksmithing", "Enchanting", "Engineering", "Leatherworking", "Tailoring" }
 local SECONDARY_PROF_NAMES = { "Mining", "Herbalism", "Skinning", "Cooking" }
-
--- Remove professions that don't exist on this client's expansion level
-local _expansionLevel = GetClassicExpansionLevel and GetClassicExpansionLevel() or 99
-if _expansionLevel < 1 then
-    TRACKED_PROFESSIONS["Jewelcrafting"] = nil
-    PROFESSION_SPELL_IDS["Jewelcrafting"] = nil
-    for i = #PRIMARY_PROF_NAMES, 1, -1 do
-        if PRIMARY_PROF_NAMES[i] == "Jewelcrafting" then
-            table.remove(PRIMARY_PROF_NAMES, i)
-        end
-    end
-end
-if _expansionLevel < 2 then
-    TRACKED_PROFESSIONS["Inscription"] = nil
-    PROFESSION_SPELL_IDS["Inscription"] = nil
-    for i = #PRIMARY_PROF_NAMES, 1, -1 do
-        if PRIMARY_PROF_NAMES[i] == "Inscription" then
-            table.remove(PRIMARY_PROF_NAMES, i)
-        end
-    end
-end
 
 -- Flat list for DB iteration, member counts, etc.
 local PROF_NAMES = {}

@@ -2,6 +2,8 @@
 
 A private guild-focused derivative of [GuildCrafts](https://github.com/dkruenbo/GuildCrafts), a World of Warcraft addon that tracks guild members' profession recipes and synchronizes them between addon users.
 
+Built for WoW Classic Forever (Interface 11507).
+
 ## Repository layout
 
 - `GuildCrafts/` — the addon folder to load from `Interface/AddOns/`
@@ -10,13 +12,9 @@ A private guild-focused derivative of [GuildCrafts](https://github.com/dkruenbo/
 
 ## Local installation
 
-The addon folder must be located at:
+Copy or symlink the `GuildCrafts/` folder into your WoW Classic Forever client's `Interface/AddOns/` directory, then `/reload`.
 
-```text
-World of Warcraft/_anniversary_/Interface/AddOns/GuildCrafts/
-```
-
-The addon is intended for WoW TBC Anniversary and includes its required libraries.
+The addon is intended for WoW Classic Forever and includes its required libraries.
 
 ## Upstream
 

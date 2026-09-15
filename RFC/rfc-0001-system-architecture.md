@@ -39,9 +39,6 @@ GuildCrafts (AceAddon-3.0 root)
 ├── Data.lua            — SavedVariables management, profession/recipe scanning,
 │                         merging, pruning, online-status cache, locale helpers
 │
-├── Data_TBC.lua        — Static lookup table: TBC_ITEM_IDS maps every TBC
-│                         recipe spell/item ID to 1 (expansion filter support)
-│
 ├── SyncPausePolicy.lua — Combat/instance/zone-transition pause guards;
 │                         public ShouldPause() API consumed by Comms
 │
@@ -76,13 +73,12 @@ hooks in a deterministic sequence:
 1.  Libs loaded            (embeds.xml → AceAddon, AceComm, AceDB, etc.)
 2.  Core.lua loaded        → GuildCrafts root object created, _G.GuildCrafts set
 3.  Data.lua loaded        → Data module registered
-4.  Data_TBC.lua loaded    → GuildCrafts.TBC_ITEM_IDS populated
-5.  SyncPausePolicy.lua    → SyncPausePolicy module registered
-6.  Comms.lua loaded       → Comms module registered
-7.  Favorites.lua loaded   → Favorites module registered
-8.  Tooltip.lua loaded     → Tooltip module registered
-9.  MinimapButton.lua      → MinimapButton module registered
-10. UI/MainFrame.lua       → UI namespace populated
+4.  SyncPausePolicy.lua    → SyncPausePolicy module registered
+5.  Comms.lua loaded       → Comms module registered
+6.  Favorites.lua loaded   → Favorites module registered
+7.  Tooltip.lua loaded     → Tooltip module registered
+8.  MinimapButton.lua      → MinimapButton module registered
+9.  UI/MainFrame.lua       → UI namespace populated
 
 --- ADDON_LOADED fires ---
 
@@ -193,7 +189,6 @@ GuildCraftsDB (global SavedVariable — AceDB-3.0)
 │
 └── profile (per-character profile)
     ├── showOnlineOnly      — boolean
-    ├── expansionFilter     — { ORIG = bool, TBC = bool }
     └── showTooltipCrafters — boolean
 
 GuildCraftsCharDB (per-character SavedVariable)
