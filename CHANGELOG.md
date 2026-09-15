@@ -1,5 +1,11 @@
   # Changelog
 
+  ## 3.0.0 — 2026-09-15
+
+  ### Improvements
+
+  - **WoW Classic Forever only** — GuildCrafts now targets a single edition, WoW Classic Forever (Interface 11507), via one `GuildCrafts_Forever.toc`. The multi-TOC setup and all TBC/WotLK/Cata/MoP recipe data, expansion tagging, and expansion filter UI have been removed. Inscription and Jewelcrafting (not available in Classic Era) are no longer tracked.
+
   ## 2.0.2 — 2026-09-08
 
   ### Fixes

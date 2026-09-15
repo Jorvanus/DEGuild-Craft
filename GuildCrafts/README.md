@@ -2,15 +2,7 @@
 
 A World of Warcraft Classic addon that tracks **all learned recipes** across guild members' professions. Open a profession window, and the addon scans and stores every recipe — then syncs it across the entire guild automatically.
 
-Supports multiple Classic versions via multi-TOC:
-
-| Client | Interface | TOC file |
-|---|---|---|
-| Classic Era | 11507 | `GuildCrafts_Vanilla.toc` |
-| TBC Anniversary | 20506 | `GuildCrafts.toc` |
-| WotLK Classic | 30403 | `GuildCrafts_Wrath.toc` |
-| Cata Classic | 40402 | `GuildCrafts_Cata.toc` |
-| MoP Classic | 50504 | `GuildCrafts_Mists.toc` |
+Built for WoW Classic Forever (Interface 11507), via `GuildCrafts_Forever.toc`.
 
 ## Features
 
@@ -23,8 +15,7 @@ Supports multiple Classic versions via multi-TOC:
 - **Reagent tracking** — see required materials for every recipe at a glance; click any recipe row to expand its reagent list
 - **Quality colors** — recipe names are tinted by item rarity using WoW's item quality data
 - **Members / Recipes view toggle** — browse per-member recipe lists or an aggregated view showing every recipe the guild can craft
-- **Expansion filter** — toggle buttons (Vanilla / TBC / WotLK / Cata / MoP) in the search bar narrow recipes by expansion; only buttons relevant to the current client are shown
-- **Specialisation tracking** — detects and displays TBC profession specs (Transmute Master, Weaponsmith, etc.)
+- **Specialisation tracking** — detects and displays profession specs (Transmute Master, Weaponsmith, etc.)
 - **Cooldown tracking** — shows active profession cooldowns with time remaining
 - **Favorites / Bookmarks** — star any recipe or member for quick access
 - **Minimap button** — toggle with `/gc minimap`; drag to reposition
@@ -37,21 +28,17 @@ Supports multiple Classic versions via multi-TOC:
 
 ## Tracked Professions
 
-**Crafting:** Alchemy · Blacksmithing · Enchanting · Engineering · Inscription · Jewelcrafting · Leatherworking · Tailoring
+**Crafting:** Alchemy · Blacksmithing · Enchanting · Engineering · Leatherworking · Tailoring
 
 **Secondary:** Mining (incl. Smelting) · Cooking
 
 **Gathering (skill level only):** Herbalism · Skinning
-
-Inscription requires WotLK+ (expansion level ≥ 2). Jewelcrafting requires TBC+ (expansion level ≥ 1).
 
 ## Installation
 
 1. Download or clone this repository
 2. Copy the `GuildCrafts/` folder into your WoW `Interface/AddOns/` directory
 3. Restart WoW or type `/reload`
-
-The WoW client automatically loads the correct TOC file for your game version.
 
 ## Slash Commands
 
@@ -85,11 +72,6 @@ GuildCrafts/
     Favorites.lua       -- Bookmark system
     Tooltip.lua         -- Item tooltip injection
     MinimapButton.lua   -- LDB minimap icon
-  Data/
-    Data_TBC.lua        -- TBC recipe keys (static)
-    Data_WOTLK.lua      -- WotLK recipe keys (static)
-    Data_CATA.lua       -- Cata recipe keys (static)
-    Data_MOP.lua        -- MoP recipe keys (static)
   UI/
     MainFrame.lua       -- All UI panels
   Libs/                 -- Embedded libraries (Ace3, LibDeflate, etc.)
@@ -97,7 +79,7 @@ GuildCrafts/
 
 ## Requirements
 
-- World of Warcraft Classic (any supported version above)
+- World of Warcraft Classic Forever (Interface 11507)
 - Must be in a guild
 
 ## Libraries Used

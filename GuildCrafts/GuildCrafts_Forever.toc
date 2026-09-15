@@ -1,8 +1,8 @@
-## Interface: 50504
+## Interface: 11507
 ## Title: GuildCrafts
-## Notes: Track all learned recipes across guild members' professions
+## Notes: Track all learned recipes across guild members' professions (WoW Classic Forever)
 ## Author: GuildCrafts Team
-## Version: 2.0.2
+## Version: 3.0.0
 ## SavedVariables: GuildCraftsDB
 ## SavedVariablesPerCharacter: GuildCraftsCharDB
 ## X-Category: Guild
@@ -13,10 +13,6 @@ Libs\embeds.xml
 # Core modules
 Core.lua
 Modules\Data.lua
-Data\Data_TBC.lua
-Data\Data_WOTLK.lua
-Data\Data_CATA.lua
-Data\Data_MOP.lua
 Modules\SyncPausePolicy.lua
 Modules\Comms.lua
 Modules\Favorites.lua

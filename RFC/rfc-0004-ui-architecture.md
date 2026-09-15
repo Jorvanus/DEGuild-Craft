@@ -67,8 +67,7 @@ GuildCraftsMainFrame  (UIParent child, "Frame")
 │   ├── FavoritesTab  (Button — ★)
 │   ├── OnlineFilter  (Button — filter online-only)
 │   ├── MinimapToggle (Button)
-│   ├── TooltipToggle (Button)
-│   └── ExpansionButtons (ORIG / TBC filter)
+│   └── TooltipToggle (Button)
 │
 └── ResizeGrip        (Button — bottom-right corner drag)
 ```
@@ -168,7 +167,6 @@ Herbalism, Skinning) which have no scannable recipes.
 `UI:ShowMemberRecipes(memberKey, profName)` renders the recipe list for a
 single member × profession combination. Each recipe row shows:
 - Recipe name (via `Data:GetLocalizedRecipeName`, with quality colour coding)
-- Expansion tag (TBC / ORIG) when the expansion filter is active
 - Cooldown indicator when applicable
 - Star button to toggle the recipe as a favorite
 - `nameHit` invisible button covering the name for shift-click-to-link
@@ -222,7 +220,6 @@ The bottom bar spans the full width below both panels. It holds:
 | OnlineFilter | Toggles `showOnlineOnly` — filters member list to online members |
 | MinimapToggle | Shows/hides the minimap button |
 | TooltipToggle | Toggles `showTooltipCrafters` |
-| ORIG / TBC buttons | Toggles the expansion filter for `"ORIG"` and `"TBC"` recipe tags |
 
 Toggle button visuals are updated by `UI:_UpdateViewToggleVisuals()`,
 `UI:_UpdateOnlineBtnVisuals()`, etc. — each reads the current preference from
@@ -257,8 +254,8 @@ version:
 
 | Client | Strategy |
 |--------|----------|
-| TBC 2.5.6+ / Classic Era 1.15.9+ | `TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, handler)` |
-| TBC 2.5.5 and earlier | `SecureHookScript(GameTooltip, "OnTooltipSetItem", handler)` and `SecureHookScript(ItemRefTooltip, …)` |
+| Classic Era 1.15.9+ | `TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, handler)` |
+| Classic Era pre-1.15.9 | `SecureHookScript(GameTooltip, "OnTooltipSetItem", handler)` and `SecureHookScript(ItemRefTooltip, …)` |
 
 The detection is a runtime `if TooltipDataProcessor then` guard in
 `Tooltip:OnEnable()`. Both paths call the same `OnTooltipSetItem` handler
